@@ -1,43 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUpAZ,
+  faEdit,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 function Home() {
   const [userData, setUserData] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/user/")
-      .then((res) => {
-        if (res.data.data && typeof res.data.data === "object") {
-          const dataArray = Object.keys(res.data.data).map(
-            (key) => res.data.data[key]
-          );
-          setUserData(dataArray);
-          console.log(res.data.data);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-      });
-  }, []);
-
-  const handleUserDelete = (id) => {
-    axios
-      .delete(`http://localhost:8000/delete/${id}`)
-      .then((res) => {
-        if (res.data.data) {
-          alert(res.data.data);
-          setUserData((prevState) =>
-            prevState.filter((user) => user.id !== id)
-          );
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-      });
-  };
+  if (userData.length < 1) {
+    axios({
+      url: "http://localhost:8000/mymodel/",
+      method: "get",
+    }).then((res) => {
+      // console.log(res);
+      if (res.data) {
+        setUserData(res.data);
+      }
+    });
+  }
+  // console.log();
 
   return (
     <>
@@ -49,11 +33,20 @@ function Home() {
                 <div className="col-sm-6">
                   <h1 className="m-0"></h1>
                 </div>
+                {/* /.col */}
+
+                {/* /.col */}
               </div>
+              {/* /.row */}
             </div>
+            {/* /.container-fluid */}
           </div>
+          {/* /.content-header */}
+          {/* Main content */}
           <section className="content">
             <div className="container-fluid">
+              {/* Small boxes (Stat box) */}
+
               <div className="card">
                 <div className="card-header">
                   <h3 className="card-title">
@@ -75,38 +68,63 @@ function Home() {
                       </tr>
                     </thead>
                     <tbody>
-                      {userData.map((user) => (
-                        <tr key={user.id}>
-                          <td>{user.name}</td>
-                          <td>{user.empid}</td>
-                          <td>{user.email}</td>
-                          <td>{user.date}</td>
-                          <td>
-                            {/* <span className="badge bg-primary p-2">
-                              <i>
-                                <FontAwesomeIcon icon={faEdit} />
-                              </i>
-                            </span>{" "} */}
-                            <button
-                              className="badge bg-primary p-2"
-                              
-                            >
-                              <i>
-                                <FontAwesomeIcon icon={faEdit} />
-                              </i>
-                            </button>
-                            |
-                            <button
-                              className="badge bg-danger p-2 m-1"
-                              onClick={() => handleUserDelete(user.id)}
-                            >
-                              <i>
-                                <FontAwesomeIcon icon={faTrash} />
-                              </i>
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                      <tr>
+                        <td>Nayana Pardeshi</td>
+                        <td>ESDS002924NP</td>
+                        <td>Nayana.Pardeshi@esds.co.in</td>
+                        <td>07/09/2022</td>
+                        <td>
+                          <span className="badge bg-primary p-2">
+                            <i>
+                              <FontAwesomeIcon icon={faEdit} />
+                            </i>
+                          </span>{" "}
+                          |
+                          <span className="badge bg-danger p-2 m-1">
+                            <i>
+                              <FontAwesomeIcon icon={faTrash} />
+                            </i>
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Nayana Pardeshi</td>
+                        <td>ESDS002924NP</td>
+                        <td>Nayana.Pardeshi@esds.co.in</td>
+                        <td>07/09/2022</td>
+                        <td>
+                          <span className="badge bg-primary p-2">
+                            <i>
+                              <FontAwesomeIcon icon={faEdit} />
+                            </i>
+                          </span>{" "}
+                          |
+                          <span className="badge bg-danger p-2 m-1">
+                            <i>
+                              <FontAwesomeIcon icon={faTrash} />
+                            </i>
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Nayana Pardeshi</td>
+                        <td>ESDS002924NP</td>
+                        <td>Nayana.Pardeshi@esds.co.in</td>
+                        <td>07/09/2022</td>
+                        <td>
+                          <span className="badge bg-primary p-2">
+                            <i>
+                              <FontAwesomeIcon icon={faEdit} />
+                            </i>
+                          </span>{" "}
+                          |
+                          <span className="badge bg-danger p-2 m-1">
+                            <i>
+                              <FontAwesomeIcon icon={faTrash} />
+                            </i>
+                          </span>
+                        </td>
+                      </tr>
                     </tbody>
                     <tfoot>
                       <tr>

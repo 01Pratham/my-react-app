@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route exact  path="/" element={<Login />} />
           
           <Route path="/home" element={<HeaderFooterLayout><Home /></HeaderFooterLayout>} />
           <Route path="/insert" element={<HeaderFooterLayout><Insert /></HeaderFooterLayout>} />

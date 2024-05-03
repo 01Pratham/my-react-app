@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 const Login = () => {
-  const Navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -22,8 +21,14 @@ const Login = () => {
       validationErrors.email = "Email field required";
     }
 
-    // Password validation code commented out for brevity
-
+    // if (formData.password === "" || formData.password === null) {
+    //   isvalid = false;
+    //   validationErrors.password = "Password field required";
+    // } else if (formData.password.length < 6) {
+    //   isvalid = false;
+    //   validationErrors.password =
+    //     "Password length should be at least 6 characters";
+    // }
     setErrors(validationErrors);
     setValid(isvalid);
 
@@ -38,9 +43,10 @@ const Login = () => {
       }).then((res) => {
         if (res.data.is_valid) {
           setLoggedIn(true);
-          // Redirect to home page
-          localStorage.setItem("Name" , res.data.Name??"User");
-          Navigate("/Home");
+          redirect("/home");
+          // 
+          console.log(res.data)
+          // history.push("/home"); // Redirect to home page
         }
       });
     }
